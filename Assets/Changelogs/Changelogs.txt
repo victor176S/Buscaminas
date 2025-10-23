@@ -1,0 +1,3 @@
+Pre-Alpha V1.0 La base funciona, descubrir minas automatico, casillas bomba, numero casillas
+
+Pre-Alpha V1.1 Imagen en las bombas puesta
