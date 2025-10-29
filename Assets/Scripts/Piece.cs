@@ -96,6 +96,11 @@ public class Piece : MonoBehaviour
         if (!GameManager.instance.endgame)
         {
             DrawBomb();
+
+            if (hasFlag && isCheck())
+        {
+            transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+        }
         }
     }
 
