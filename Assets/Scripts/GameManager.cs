@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     public bool endgame;
 
+    public bool hasLost;
+
     private void Awake()
     {
         if (instance == null)
@@ -39,6 +41,10 @@ public class GameManager : MonoBehaviour
             startMenu.SetActive(true);
         }
 
+        if (endgame)
+        {
+            PantallaFinal();
+        }
        
     }
 
@@ -46,8 +52,8 @@ public class GameManager : MonoBehaviour
     {
 
         Generator.codigoError = ErrorWindow.CodigoError(
-        int.Parse(StartMenu.instance.widthInput.GetComponentInChildren<TMP_InputField>().text.ToString()),
         int.Parse(StartMenu.instance.heightInput.GetComponentInChildren<TMP_InputField>().text.ToString()),
+        int.Parse(StartMenu.instance.widthInput.GetComponentInChildren<TMP_InputField>().text.ToString()),
         int.Parse(StartMenu.instance.bombsInput.GetComponentInChildren<TMP_InputField>().text.ToString())
         );
 
@@ -70,10 +76,25 @@ public class GameManager : MonoBehaviour
             Debug.Log("Else de startgame");
             ErrorWindow.ErrorMessage = ErrorWindow.MensajeError();
             ErrorWindow.errorWindow.MostrarError();
-            
+            ErrorWindow.codigoError = 0;
 
         }
+    }
 
+    public void PantallaFinal()
+    {
+        {
+            gameObject.SetActive(true);
+            transform.GetChild(1).gameObject.SetActive(true);
+        }
+
+        /*else
+        {
+            
+            gameObject.SetActive(true);
+            transform.GetChild(0).gameObject.SetActive(true);
+
+        }*/
     }
 
 }

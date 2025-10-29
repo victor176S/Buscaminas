@@ -51,10 +51,10 @@ public class ErrorWindow : MonoBehaviour
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public static int CodigoError(int width, int height, int bombsNumber)
+    public static int CodigoError(int height, int width, int bombsNumber)
     {
 
-        if (width <= 2)
+        if (height <= 2)
         {
 
 
@@ -63,7 +63,7 @@ public class ErrorWindow : MonoBehaviour
 
         }
 
-        if (height <= 2)
+        if (width <= 2)
         {
 
 
@@ -97,12 +97,12 @@ public class ErrorWindow : MonoBehaviour
 
             case 1:
 
-                ErrorMessage = "Has elegido un valor muy pequeño para la anchura, elige 3 o más ";
+                ErrorMessage = "Has elegido un valor muy pequeño para el alto, elige 3 o más ";
                 break;
 
             case 2:
 
-                ErrorMessage = "Has elegido un valor muy pequeño para la altura, elige 3 o más";
+                ErrorMessage = "Has elegido un valor muy pequeño para el ancho, elige 3 o más";
 
                 break;
 
@@ -127,7 +127,7 @@ public class ErrorWindow : MonoBehaviour
 
             case 6:
 
-                ErrorMessage = "Has elegido un valor muy pequeño para la altura, elige 3 o más, además para las bombas elige de 1 a más";
+                ErrorMessage = "Has elegido un valor muy pequeño para el ancho, elige 3 o más, además para las bombas elige de 1 a más";
 
                 break;
 

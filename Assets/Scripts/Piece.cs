@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class Piece : MonoBehaviour
 {
+
+    public static Piece piece;
+
     [SerializeField] private int x, y;
     [SerializeField] private bool bomb, check;
 
@@ -26,6 +29,8 @@ public class Piece : MonoBehaviour
     {
         return check;
     }
+
+    public bool hasLost;
 
     private void DrawFlag()
     {
@@ -95,12 +100,19 @@ public class Piece : MonoBehaviour
         Debug.Log("Click");
         if (!GameManager.instance.endgame)
         {
+
             DrawBomb();
 
             if (hasFlag && isCheck())
-        {
-            transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+            {
+                transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+            }
+
         }
+
+        else
+        {
+            hasLost = true;
         }
     }
 

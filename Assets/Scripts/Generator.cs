@@ -54,6 +54,7 @@ public class Generator : MonoBehaviour
             for (int i = 0; i < height; i++)
             {
                 map[i][j] = Instantiate(piece, new Vector3(i, j, 0), Quaternion.identity);
+                //array bug
                 map[i][j].GetComponent<Piece>().setX(i);
                 map[i][j].GetComponent<Piece>().setY(j);
             }
