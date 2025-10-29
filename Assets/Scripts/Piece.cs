@@ -15,6 +15,8 @@ public class Piece : MonoBehaviour
     public int getY() { return y; }
     public bool isBomb() { return bomb; }
 
+    public bool hasFlag;
+
     public void setCheck(bool v)
     {
         this.check = v;
@@ -23,6 +25,25 @@ public class Piece : MonoBehaviour
     public bool isCheck()
     {
         return check;
+    }
+
+    private void DrawFlag()
+    {
+        if (!hasFlag) {
+
+            hasFlag = true;
+            Debug.Log("Se detecta que no tiene bandera");
+            GetComponent<SpriteRenderer>().material.color = Color.yellow;
+            transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
+        }
+
+        else
+        {
+            hasFlag = false;
+            Debug.Log("Se detecta que tiene bandera");
+            GetComponent<SpriteRenderer>().material.color = Color.white;
+            transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+        }
     }
 
     public void DrawBomb()
@@ -67,7 +88,7 @@ public class Piece : MonoBehaviour
         }
 
     }
-    
+
 
     private void OnMouseDown()
     {
@@ -76,6 +97,16 @@ public class Piece : MonoBehaviour
         {
             DrawBomb();
         }
-    }    
+    }
+
+    public void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(1))
+        {
+            Debug.Log("Click derecho");
+            DrawFlag();
+
+        }
+    }   
 
 }
