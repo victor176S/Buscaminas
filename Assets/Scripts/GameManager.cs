@@ -1,4 +1,7 @@
+using System.Data;
+using NUnit.Framework;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
@@ -14,6 +17,10 @@ public class GameManager : MonoBehaviour
     public bool endgame;
 
     public bool hasLost;
+
+    public bool hasWon;
+
+    public int counter;
 
     private void Awake()
     {
@@ -39,7 +46,7 @@ public class GameManager : MonoBehaviour
         if (ErrorWindow.codigoError == 0)
         {
             startMenu.SetActive(true);
-        }  
+        }
     }
 
     public void Update()
@@ -89,18 +96,18 @@ public class GameManager : MonoBehaviour
         if (hasLost)
         {
 
-            Debug.Log("entrada a la funcion PantallaFinal");
-            endMenu.transform.gameObject.SetActive(true);
-            endMenu.transform.GetChild(1).gameObject.SetActive(true);
+            Debug.Log("entrada a la funcion PantallaFinal (hasLost)");
+                endMenu.transform.gameObject.SetActive(true);
+                endMenu.transform.GetChild(1).gameObject.SetActive(true);
         }
 
-        else
-        {
+        if(hasWon){
 
-            endMenu.gameObject.SetActive(true);
-            endMenu.transform.GetChild(0).gameObject.SetActive(true);
+            Debug.Log("entrada a la funcion PantallaFinal (hasWon)");
+                endMenu.gameObject.SetActive(true);
+                endMenu.transform.GetChild(0).gameObject.SetActive(true);
 
+            }
         }
     }
 
-}

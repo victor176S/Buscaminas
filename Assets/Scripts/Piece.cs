@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Piece : MonoBehaviour
 {
@@ -9,7 +10,7 @@ public class Piece : MonoBehaviour
     public static Piece piece;
 
     [SerializeField] private int x, y;
-    [SerializeField] private bool bomb, check;
+    [SerializeField] public bool bomb, check;
 
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
@@ -57,6 +58,8 @@ public class Piece : MonoBehaviour
         if (!isCheck())
         {
             setCheck(true);
+
+            GameManager.instance.counter++;
 
             if (isBomb())
             {
@@ -106,6 +109,13 @@ public class Piece : MonoBehaviour
             if (hasFlag && isCheck())
             {
                 transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
+            }
+
+            if (GameManager.instance.counter == ((Generator.gen.width * Generator.gen.height) - Generator.gen.bombsNumber))
+            {
+                Debug.Log("Entrada al if que pone hasWon a true");
+                GameManager.instance.hasWon = true;
+                GameManager.instance.endgame = true;
             }
 
         }
