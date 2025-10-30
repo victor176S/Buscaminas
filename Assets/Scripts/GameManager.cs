@@ -39,13 +39,16 @@ public class GameManager : MonoBehaviour
         if (ErrorWindow.codigoError == 0)
         {
             startMenu.SetActive(true);
-        }
+        }  
+    }
 
+    public void Update()
+    {
         if (endgame)
         {
+            Debug.Log("entrada al if de endgame");
             PantallaFinal();
         }
-       
     }
 
     public void StartGame()
@@ -83,18 +86,21 @@ public class GameManager : MonoBehaviour
 
     public void PantallaFinal()
     {
+        if (hasLost)
         {
-            gameObject.SetActive(true);
-            transform.GetChild(1).gameObject.SetActive(true);
+
+            Debug.Log("entrada a la funcion PantallaFinal");
+            endMenu.transform.gameObject.SetActive(true);
+            endMenu.transform.GetChild(1).gameObject.SetActive(true);
         }
 
-        /*else
+        else
         {
-            
-            gameObject.SetActive(true);
-            transform.GetChild(0).gameObject.SetActive(true);
 
-        }*/
+            endMenu.gameObject.SetActive(true);
+            endMenu.transform.GetChild(0).gameObject.SetActive(true);
+
+        }
     }
 
 }
