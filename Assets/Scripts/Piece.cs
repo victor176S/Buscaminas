@@ -37,16 +37,17 @@ public class Piece : MonoBehaviour
     {
         if (!hasFlag) {
 
-            hasFlag = true;
             Debug.Log("Se detecta que no tiene bandera");
+            hasFlag = true;
             GetComponent<SpriteRenderer>().material.color = Color.yellow;
             transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
         }
 
         else
         {
-            hasFlag = false;
+
             Debug.Log("Se detecta que tiene bandera");
+            hasFlag = false;
             GetComponent<SpriteRenderer>().material.color = Color.white;
             transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
         }
