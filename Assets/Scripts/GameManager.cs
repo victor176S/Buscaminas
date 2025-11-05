@@ -8,6 +8,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
+    public Canvas BotCanvas;
     [SerializeField] GameObject startMenu;
     public GameObject endMenu;
     public static GameManager instance;
@@ -68,6 +69,11 @@ public class GameManager : MonoBehaviour
         );
 
 
+        BotCanvas.gameObject.SetActive(true);
+        BotCanvas.transform.GetChild(0).gameObject.SetActive(true);
+        BotCanvas.transform.GetChild(1).gameObject.SetActive(false);
+
+
         if (Generator.codigoError == 0)
         {
 
@@ -97,17 +103,39 @@ public class GameManager : MonoBehaviour
         {
 
             Debug.Log("entrada a la funcion PantallaFinal (hasLost)");
-                endMenu.transform.gameObject.SetActive(true);
-                endMenu.transform.GetChild(1).gameObject.SetActive(true);
+            endMenu.transform.gameObject.SetActive(true);
+            endMenu.transform.GetChild(1).gameObject.SetActive(true);
         }
 
-        if(hasWon){
+        if (hasWon)
+        {
 
             Debug.Log("entrada a la funcion PantallaFinal (hasWon)");
-                endMenu.gameObject.SetActive(true);
-                endMenu.transform.GetChild(0).gameObject.SetActive(true);
+            endMenu.gameObject.SetActive(true);
+            endMenu.transform.GetChild(0).gameObject.SetActive(true);
 
-            }
+        }
+    }
+        
+        public void MakeVisible()
+    {
+
+        if (BotCanvas.transform.GetChild(0).gameObject.activeInHierarchy == false)
+        {
+
+            BotCanvas.transform.GetChild(0).gameObject.SetActive(true);
+            BotCanvas.transform.GetChild(1).gameObject.SetActive(false);
+
+        }
+
+        else
+        {
+
+            BotCanvas.transform.GetChild(0).gameObject.SetActive(false);
+            BotCanvas.transform.GetChild(1).gameObject.SetActive(true);
+
+        }
+        
         }
     }
 

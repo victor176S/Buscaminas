@@ -4,21 +4,43 @@ using System.Linq;
 
 public class AIController : MonoBehaviour
 {
+    public bool botIsStopped;
     // Declaración de variables (necesitarás algunas más)
     public float turnTime = 0.5f;
 
+    bool[] nonCheckedPieces;
 
+    private int k;
 
+    private List<GameObject> lista;
     // El Bot comienza a Jugar. Este Código no hay que cambiarlo
     void Start()
     {
-        StartCoroutine(Play());
+
+        if (!botIsStopped)
+        {
+            StartCoroutine(Play());
+        }
+    }
+
+    public void StopBot()
+    {
+
+        botIsStopped = true;
+
+    }
+
+    public void StartBot()
+    {
+
+        botIsStopped = false;
+
     }
 
 
     System.Collections.IEnumerator Play()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
 
         while (!GameManager.instance.endgame)
         {
@@ -53,11 +75,22 @@ public class AIController : MonoBehaviour
         return action;
     }
 
-           void RandomPlay()
+    void RandomPlay()
+    {
+        for (int j = 0; j < Generator.Instance.width; j++)
+        {
+            for (int i = 0; i < Generator.Instance.height; i++)
             {
-                // De todas las celdas que no se han chequeado, click_izquierdo en una de forma aleatoria;
+                //Los <> de GetComponent te dejan acceder a los componentes de un objeto, (en la parte derecha del editor de unity)
+                //los nombres de componentes de unity por lo general son iguales que en el editor pero todo junto (Sprite Renderer -> SpriteRenderer)
+                //Si se quiere agarrar el valor de una funcion de un script de un objeto, seria poniendo el nombre del script en los <>, despues
+                //(), y luego .NombreFuncion
+                if (!Generator.Instance.map[i][j].GetComponent<Piece>().isCheck())
+                
+                    lista.Add(Generator.Instance.map[i][j]);
+                }
             }
-       
-}
+        }
+    }    
 
 
