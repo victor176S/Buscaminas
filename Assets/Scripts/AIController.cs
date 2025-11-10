@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data;
 
 public class AIController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class AIController : MonoBehaviour
     private int k;
 
     private List<GameObject> lista;
+
+    private List<GameObject> listaCandidatos;
     // El Bot comienza a Jugar. Este Código no hay que cambiarlo
     void Start()
     {
@@ -64,6 +67,28 @@ public class AIController : MonoBehaviour
 
 
         // Buscamos todas las casilla comprobadas con bombas alrededor (check == true)
+
+         for (int j = 0; j < Generator.Instance.width; j++)
+        {
+            for (int i = 0; i < Generator.Instance.height; i++)
+            {
+                //array bug
+                Generator.Instance.map[i][j].GetComponent<Piece>();
+
+                if (
+
+                    Generator.Instance.map[i][j].GetComponent<Piece>() != Piece.piece.isCheck()
+
+                    &&
+
+                    Generator.Instance.map[i][j].GetComponent<Piece>() != Piece.piece.isBomb()
+
+                    )
+                {
+                    listaCandidatos.Add(Generator.Instance.map[i][j]);
+                }
+            }
+        }
 
         // Para cada casilla comprobada   
 
