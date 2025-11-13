@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
     public GameObject endMenu;
     public static GameManager instance;
 
+    public GameObject bot, prefabBot;
+
     public static bool ErrorDetectado;
 
     public bool endgame;
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
         if (instance == null)
         {
 
@@ -73,6 +76,7 @@ public class GameManager : MonoBehaviour
         BotCanvas.transform.GetChild(0).gameObject.SetActive(true);
         BotCanvas.transform.GetChild(1).gameObject.SetActive(false);
 
+        bot = Instantiate(prefabBot, new Vector3(0, 0, 0), Quaternion.identity);
 
         if (Generator.codigoError == 0)
         {

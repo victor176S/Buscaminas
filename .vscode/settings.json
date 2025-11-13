@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "Buscaminas-V2-WIP.sln"
+    "dotnet.defaultSolution": "Buscaminas-V3-WIP.sln"
 }

@@ -12,14 +12,18 @@ public class Piece : MonoBehaviour
     [SerializeField] private int x, y;
     [SerializeField] public bool bomb, check;
 
+    public bool hasFlag;
+
+     public bool hasLost;
+
+    public int bombsAround = -1;
+
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y; }
     public void setBomb(bool bomb) { this.bomb = bomb; }
     public int getX() { return x; }
     public int getY() { return y; }
     public bool isBomb() { return bomb; }
-
-    public bool hasFlag;
 
     public void setCheck(bool v)
     {
@@ -31,7 +35,7 @@ public class Piece : MonoBehaviour
         return check;
     }
 
-    public bool hasLost;
+   
 
     private void DrawFlag()
     {
@@ -83,6 +87,7 @@ public class Piece : MonoBehaviour
                 {
 
                     transform.GetChild(0).GetChild(0).GetComponent<TextMeshProUGUI>().text = bombsNumber.ToString();
+                    bombsAround = bombsNumber;
 
                 }
 
@@ -99,7 +104,7 @@ public class Piece : MonoBehaviour
     }
 
 
-    private void OnMouseDown()
+    public void OnMouseDown()
     {
         Debug.Log("Click");
         if (!GameManager.instance.endgame)
