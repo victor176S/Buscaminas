@@ -6,6 +6,8 @@ using System;
 
 public class AIController : MonoBehaviour
 {
+
+    public static AIController instance;
     public bool botIsStopped;
     // Declaración de variables (necesitarás algunas más)
     public float turnTime = 0.5f;
@@ -33,11 +35,11 @@ public class AIController : MonoBehaviour
     private int flags;
 
     // El Bot comienza a Jugar. Este Código no hay que cambiarlo
-    void Start()
+    public void Start()
     {
 
-        StartCoroutine(Play());
-
+            StartCoroutine(Play());
+    
     }
 
     public void StopBot()
@@ -54,27 +56,36 @@ public class AIController : MonoBehaviour
 
     }
 
-    public List<GameObject> Adyacentes()
+    public int Adyacentes()
     {
 
-        listaAdyacentes = new List<GameObject>();
+        listaAdyacentes = new List<int>();
 
-        if (Piece.piece.getX() > 0 && Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX()][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getX() < Generator.gen.width - 1 && Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getX() > 0 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getX()].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getX() < Generator.gen.width - 1 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY()].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getX() > 0 && Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX()][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getX() < Generator.gen.width - 1 && Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) cont++;
+        if (Piece.piece.getX() > 0 && Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX()][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getX() < Generator.gen.width - 1 && Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getX() > 0 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getX()].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getX() < Generator.gen.width - 1 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY()].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getX() > 0 && Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX()][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getX() < Generator.gen.width - 1 && Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
 
-        return cont;
+        return listaAdyacentes.Count;
         
     }
 
 
-    System.Collections.IEnumerator Play()
+    public System.Collections.IEnumerator Play()
     {
+
+        if (botIsStopped)
+        {
+            
+        }
+
+        else
+        {
+
         yield return new WaitForSeconds(0.5f);
 
          while (!GameManager.instance.endgame)
@@ -92,6 +103,10 @@ public class AIController : MonoBehaviour
         RandomPlay();
 
         yield return new WaitForSeconds(turnTime);
+        }
+
+        botIsStopped = true;
+
     }
 
 
@@ -128,11 +143,11 @@ public class AIController : MonoBehaviour
             foreach (GameObject pieza in listaCheck)
             {
                
-                listaAdyacentes[] = PossibleBombsAround();
+                listaAdyacentes.Add(Adyacentes());
              
 
 
-                if (listaAdyacentes.Count > 0 && PossibleBombsAround() == listaAdyacentes.Count + flags)
+                if (listaAdyacentes.Count > 0 && Adyacentes() == listaAdyacentes.Count + flags)
                 {
                     for (int i = 0; i < listaAdyacentes.Count; i++)
                     {
@@ -142,7 +157,7 @@ public class AIController : MonoBehaviour
                     }
                 }
                 
-                if (listaAdyacentes.Count > 0 && PossibleBombsAround() == flags)
+                if (listaAdyacentes.Count > 0 && Adyacentes() == flags)
                 {
                     Piece.piece.OnMouseDown();
                 }

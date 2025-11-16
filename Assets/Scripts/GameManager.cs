@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour
 
     public int counter;
 
+    public bool botWasInitiated;
+
     private void Awake()
     {
 
@@ -43,6 +45,28 @@ public class GameManager : MonoBehaviour
 
         }
 
+    }
+
+    public void StartBot()
+    {
+
+        if (!botWasInitiated){
+
+        AIController.instance.Start();
+
+        botWasInitiated = true;
+        
+        }
+
+        else
+        {
+            StartCoroutine(AIController.instance.Play());
+        }
+    }
+
+    public void StopBot()
+    {
+        AIController.instance.StopBot();
     }
 
     public void Start()
