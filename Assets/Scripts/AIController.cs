@@ -54,21 +54,21 @@ public class AIController : MonoBehaviour
 
     }
 
-    public List<GameObject> Adyacentes()
+    public List<int> Adyacentes()
     {
 
-        listaAdyacentes = new List<GameObject>();
+        listaAdyacentes = new List<int>();
 
-        if (Piece.piece.getX() > 0 && Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX()][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getX() < Generator.gen.width - 1 && Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getX() > 0 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getX()].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getX() < Generator.gen.width - 1 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY()].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getX() > 0 && Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX()][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) cont++;
-        if (Piece.piece.getX() < Generator.gen.width - 1 && Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) cont++;
+        if (Piece.piece.getX() > 0 && Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX()][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getX() < Generator.gen.width - 1 && Piece.piece.getY() < Generator.gen.height - 1 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY() + 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getX() > 0 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getX()].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getX() < Generator.gen.width - 1 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY()].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getX() > 0 && Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX() - 1][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX()][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
+        if (Piece.piece.getX() < Generator.gen.width - 1 && Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
 
-        return cont;
+        return listaAdyacentes;
         
     }
 
@@ -124,15 +124,9 @@ public class AIController : MonoBehaviour
             //los nombres de componentes de unity por lo general son iguales que en el editor pero todo junto (Sprite Renderer -> SpriteRenderer)
             //Si se quiere agarrar el valor de una funcion de un script de un objeto, seria poniendo el nombre del script en los <>, despues
             //(), y luego .NombreFuncion
-
-            foreach (GameObject pieza in listaCheck)
-            {
-               
-                listaAdyacentes[] = PossibleBombsAround();
              
 
-
-                if (listaAdyacentes.Count > 0 && PossibleBombsAround() == listaAdyacentes.Count + flags)
+                if (listaAdyacentes.Count > 0 && Adyacentes().Count == listaAdyacentes.Count + flags)
                 {
                     for (int i = 0; i < listaAdyacentes.Count; i++)
                     {
@@ -140,16 +134,21 @@ public class AIController : MonoBehaviour
                         Piece.piece.hasFlag = true;
 
                     }
+
+                    action = true;
                 }
                 
-                if (listaAdyacentes.Count > 0 && PossibleBombsAround() == flags)
+                if (listaAdyacentes.Count > 0 && Adyacentes().Count == flags)
                 {
                     Piece.piece.OnMouseDown();
+
+                    action = true;
                 }
+                
 
             }
            
-        }
+        
 
         // Para cada casilla comprobada   
 
