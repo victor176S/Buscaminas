@@ -14,7 +14,7 @@ public class Piece : MonoBehaviour
 
     public bool hasFlag;
 
-     public bool hasLost;
+    public bool hasLost;
 
     public int bombsAround = -1;
 

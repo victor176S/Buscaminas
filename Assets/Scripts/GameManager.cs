@@ -19,8 +19,6 @@ public class GameManager : MonoBehaviour
 
     public bool endgame;
 
-    public bool hasLost;
-
     public bool hasWon;
 
     public int counter;
@@ -127,7 +125,7 @@ public class GameManager : MonoBehaviour
 
     public void PantallaFinal()
     {
-        if (hasLost)
+        if (Piece.piece.GetComponent<Piece>().hasLost)
         {
 
             Debug.Log("entrada a la funcion PantallaFinal (hasLost)");

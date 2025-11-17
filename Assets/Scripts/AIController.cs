@@ -6,8 +6,6 @@ using System;
 
 public class AIController : MonoBehaviour
 {
-
-    public static AIController instance;
     public bool botIsStopped;
     // Declaración de variables (necesitarás algunas más)
     public float turnTime = 0.5f;
@@ -35,11 +33,11 @@ public class AIController : MonoBehaviour
     private int flags;
 
     // El Bot comienza a Jugar. Este Código no hay que cambiarlo
-    public void Start()
+    void Start()
     {
 
-            StartCoroutine(Play());
-    
+        StartCoroutine(Play());
+
     }
 
     public void StopBot()
@@ -56,7 +54,7 @@ public class AIController : MonoBehaviour
 
     }
 
-    public int Adyacentes()
+    public List<int> Adyacentes()
     {
 
         listaAdyacentes = new List<int>();
@@ -70,22 +68,13 @@ public class AIController : MonoBehaviour
         if (Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX()][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
         if (Piece.piece.getX() < Generator.gen.width - 1 && Piece.piece.getY() > 0 && Generator.gen.map[Piece.piece.getX() + 1][Piece.piece.getY() - 1].GetComponent<Piece>().isCheck()) listaAdyacentes.Add(1);
 
-        return listaAdyacentes.Count;
+        return listaAdyacentes;
         
     }
 
 
-    public System.Collections.IEnumerator Play()
+    System.Collections.IEnumerator Play()
     {
-
-        if (botIsStopped)
-        {
-            
-        }
-
-        else
-        {
-
         yield return new WaitForSeconds(0.5f);
 
          while (!GameManager.instance.endgame)
@@ -103,10 +92,6 @@ public class AIController : MonoBehaviour
         RandomPlay();
 
         yield return new WaitForSeconds(turnTime);
-        }
-
-        botIsStopped = true;
-
     }
 
 
@@ -139,15 +124,9 @@ public class AIController : MonoBehaviour
             //los nombres de componentes de unity por lo general son iguales que en el editor pero todo junto (Sprite Renderer -> SpriteRenderer)
             //Si se quiere agarrar el valor de una funcion de un script de un objeto, seria poniendo el nombre del script en los <>, despues
             //(), y luego .NombreFuncion
-
-            foreach (GameObject pieza in listaCheck)
-            {
-               
-                listaAdyacentes.Add(Adyacentes());
              
 
-
-                if (listaAdyacentes.Count > 0 && Adyacentes() == listaAdyacentes.Count + flags)
+                if (listaAdyacentes.Count > 0 && Adyacentes().Count == listaAdyacentes.Count + flags)
                 {
                     for (int i = 0; i < listaAdyacentes.Count; i++)
                     {
@@ -155,16 +134,21 @@ public class AIController : MonoBehaviour
                         Piece.piece.hasFlag = true;
 
                     }
+
+                    action = true;
                 }
                 
-                if (listaAdyacentes.Count > 0 && Adyacentes() == flags)
+                if (listaAdyacentes.Count > 0 && Adyacentes().Count == flags)
                 {
                     Piece.piece.OnMouseDown();
+
+                    action = true;
                 }
+                
 
             }
            
-        }
+        
 
         // Para cada casilla comprobada   
 
